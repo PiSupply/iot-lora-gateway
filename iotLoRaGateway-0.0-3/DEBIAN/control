@@ -1,0 +1,9 @@
+Package: iotLoRaGateway
+Version: 0.0-3
+Section: base
+Priority: optional
+Architecture: armhf
+Depends: python3-dialog
+Maintainer: Ryan Walmsley <ryan@pi-supply.com>
+postinst: /opt/iot-lora-gateway/iot-lora-configure
+Description: IOT Lora Gateway Package
