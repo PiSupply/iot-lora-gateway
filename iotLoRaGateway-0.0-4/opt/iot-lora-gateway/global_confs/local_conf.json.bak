@@ -1,0 +1,21 @@
+{
+    "gateway_conf": {
+        "gateway_ID": "CHANGE-ME",
+        "contact_email" : "CHANGE-ME",
+	"description": "CHANGE-ME",
+	 "servers": [
+            {
+                "serv_type": "ttn",
+                "server_address": "<see TTN console>",
+                "serv_gw_id": "<gateway name from console>",
+                "serv_gw_key": "<gateway secret key from console>",
+                "serv_enabled": true
+	    }
+	],
+	"gps": true,
+        "fake_gps": true,
+        "ref_latitude": 0,
+        "ref_longitude": 0,
+        "ref_altitude": 0
+    }
+}

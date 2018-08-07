@@ -1,0 +1,15 @@
+[Unit]
+Description=IOT LoRa Gateway Packet Forwarder
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/iot-lora-gateway/
+ExecStartPre=/opt/iot-lora-gateway/start.sh
+ExecStart=/opt/iot-lora-gateway/mp_pkt_fwd
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+
