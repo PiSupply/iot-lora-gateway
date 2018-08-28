@@ -1,4 +1,6 @@
 # iot-lora-gateway
+[![Build Status](http://86.20.180.136:8080/job/iot-lora-installer-script/badge/icon)](http://86.20.180.136:8080/job/iot-lora-installer-script/)
+
 Github repo for some of our LoRa Gateway HAT Files for different tasks. See below for a detailed description.
 
 You can either setup your gateway by using the one line installer script on Raspbian or instead, use our pre-made SD card image which has all of this already included.
@@ -21,3 +23,6 @@ Our template for systemd that will automatically start the packet forwarder inst
 
 ### Reset script
 A basic bash script to reset the concentrator, required by our systemd template to automatically launch on boot.
+
+###Reset RPi script
+A little script that should reset the Raspberry Pi back to default settings. Used primarily for our jenkins build server.
