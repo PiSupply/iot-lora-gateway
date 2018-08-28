@@ -16,8 +16,8 @@ This is our one line installer that will install the following software.
 ### iot-lora-configure
 Our configuration script for the software, this will configure the SPI & Clocks on the Raspberry Pi and allow the user to configure the gateway's name, description, region and servers using a simple interface. Also compatible with our gateway image.
 
-###Systemd template
+### Systemd template
 Our template for systemd that will automatically start the packet forwarder installed by our installer. Also used in our pre-made SD card image.
 
-###Reset script
+### Reset script
 A basic bash script to reset the concentrator, required by our systemd template to automatically launch on boot.
