@@ -45,6 +45,15 @@ cp /opt/iotloragateway/dev/packet_forwarder/mp_pkt_fwd/mp_pkt_fwd /opt/iotloraga
 cd/opt/iotloragateway/dev/iot-lora-gateway/
 
 install -m 644 template_configs/EU-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_conf.json"
+install -m 644 template_configs/AS1-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_confs"
+install -m 644 template_configs/AS2-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_confs"
+install -m 644 template_configs/AU-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_confs"
+install -m 644 template_configs/EU-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_confs"
+install -m 644 template_configs/IN-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_confs"
+install -m 644 template_configs/KR-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_confs"
+install -m 644 template_configs/US-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_confs"
+
+
 install -m 644 template_configs/local_conf.json "${ROOTFS_DIR}/boot/iotloragateway/"
 install -m 644 template_configs/iot-lora-gateway.service "${ROOTFS_DIR}/lib/systemd/system/"
 install -m 644 template_configs/iot-lora-gateway-reset.sh "${ROOTFS_DIR}/opt/iotloragateway/"
