@@ -10,9 +10,9 @@ You can either setup your gateway by using the one line installer script on Rasp
 ### iot-lora-installer
 This is our one line installer that will install the following software.
 * lora_gateway - The drivers that are used to communicate with the radio module itself, this fork has it pre-configured for Raspberry Pi. - https://github.com/PiSupply/lora_gateway.git
-* Software 2 - - https://github.com/kersing/paho.mqtt.embedded-c.git
-* Software 3 - - https://github.com/kersing/ttn-gateway-connector.git
-* Software 4 - - https://github.com/kersing/protobuf-c.git
+* paho.mqtt.embedded - Eclipse Paho MQTT C/C++ Library - https://github.com/kersing/paho.mqtt.embedded-c.git
+* ttn-gateway-connector - Embedded C Library for Things Network Gateways to connect to TTN - https://github.com/kersing/ttn-gateway-connector.git
+* protobuf-c - C Implementation of the Google Protocol Buffers - https://github.com/kersing/protobuf-c.git
 * mp_pkt_fwd - The Packet Forwarder itself, this is slightly tweaked so that it stores the configuration files in a folder on the boot partition of your Raspberry Pi allowing configuration changes to be made on any computer without having to use SSH. - https://github.com/PiSupply/packet_forwarder.git
 
 ### iot-lora-configure
@@ -26,3 +26,5 @@ A basic bash script to reset the concentrator, required by our systemd template 
 
 ###Reset RPi script
 A little script that should reset the Raspberry Pi back to default settings. Used primarily for our jenkins build server.
+###Test RPi script
+Another little script for our jenkins build server

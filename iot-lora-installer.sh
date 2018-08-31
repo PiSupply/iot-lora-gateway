@@ -1,6 +1,8 @@
-!#/bin/bash
+#!/bin/bash
 
-apt install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf python-dev python-rpi.gpio git
+apt update
+apt upgrade
+apt install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf git
 
 
 
