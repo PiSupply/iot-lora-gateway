@@ -16,6 +16,7 @@ git clone https://github.com/kersing/paho.mqtt.embedded-c.git
 git clone https://github.com/kersing/ttn-gateway-connector.git
 git clone https://github.com/kersing/protobuf-c.git
 git clone https://github.com/PiSupply/packet_forwarder.git
+git clone https://github.com/PiSupply/iot-lora-gateway.git
 
 cd /opt/iotloragateway/dev/lora_gateway/libloragw
 make
@@ -40,6 +41,14 @@ echo "Packet Forwarder"
 cd /opt/iotloragateway/dev/packet_forwarder/mp_pkt_fwd
 make
 cp /opt/iotloragateway/dev/packet_forwarder/mp_pkt_fwd/mp_pkt_fwd /opt/iotloragateway/iot-lora-gateway
+
+cd/opt/iotloragateway/dev/iot-lora-gateway/
+
+install -m 644 template_configs/EU-global_conf.json "${ROOTFS_DIR}/boot/iotloragateway/global_conf.json"
+install -m 644 template_configs/local_conf.json "${ROOTFS_DIR}/boot/iotloragateway/"
+install -m 644 template_configs/iot-lora-gateway.service "${ROOTFS_DIR}/lib/systemd/system/"
+install -m 644 template_configs/iot-lora-gateway-reset.sh "${ROOTFS_DIR}/opt/iotloragateway/"
+
 
 systemctl daemon-reload
 systemctl enable iot-lora-gateway.service
