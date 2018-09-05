@@ -12,9 +12,9 @@ mkdir -p /opt/iotloragateway/dev
 cd /opt/iotloragateway/dev
 
 git clone https://github.com/PiSupply/lora_gateway.git
-git clone https://github.com/kersing/paho.mqtt.embedded-c.git
-git clone https://github.com/kersing/ttn-gateway-connector.git
-git clone https://github.com/kersing/protobuf-c.git
+git clone https://github.com/PiSupply/paho.mqtt.embedded-c.git
+git clone https://github.com/PiSupply/ttn-gateway-connector.git
+git clone https://github.com/PiSupply/protobuf-c.git
 git clone https://github.com/PiSupply/packet_forwarder.git
 git clone https://github.com/PiSupply/iot-lora-gateway.git
 

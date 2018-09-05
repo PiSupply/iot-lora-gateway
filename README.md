@@ -10,9 +10,9 @@ You can either setup your gateway by using the one line installer script on Rasp
 ### iot-lora-installer
 This is our one line installer that will install the following software.
 * lora_gateway - The drivers that are used to communicate with the radio module itself, this fork has it pre-configured for Raspberry Pi. - https://github.com/PiSupply/lora_gateway.git
-* paho.mqtt.embedded - Eclipse Paho MQTT C/C++ Library - https://github.com/kersing/paho.mqtt.embedded-c.git
-* ttn-gateway-connector - Embedded C Library for Things Network Gateways to connect to TTN - https://github.com/kersing/ttn-gateway-connector.git
-* protobuf-c - C Implementation of the Google Protocol Buffers - https://github.com/kersing/protobuf-c.git
+* paho.mqtt.embedded - Eclipse Paho MQTT C/C++ Library - https://github.com/PiSupply/paho.mqtt.embedded-c.git
+* ttn-gateway-connector - Embedded C Library for Things Network Gateways to connect to TTN - https://github.com/PiSupply/ttn-gateway-connector.git
+* protobuf-c - C Implementation of the Google Protocol Buffers - https://github.com/PiSupply/protobuf-c.git
 * mp_pkt_fwd - The Packet Forwarder itself, this is slightly tweaked so that it stores the configuration files in a folder on the boot partition of your Raspberry Pi allowing configuration changes to be made on any computer without having to use SSH. - https://github.com/PiSupply/packet_forwarder.git
 
 ### iot-lora-configure
