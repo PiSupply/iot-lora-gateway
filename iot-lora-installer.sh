@@ -2,7 +2,7 @@
 
 apt-get update
 apt-get upgrade -y
-apt-get install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf git -y
+apt-get install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf git pkg-config protobuf-c-compiler -y
 
 
 
