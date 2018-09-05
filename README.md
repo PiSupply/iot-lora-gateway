@@ -1,5 +1,5 @@
 # iot-lora-gateway
-[![Build Status](http://86.20.180.136:8080/job/iot-lora-installer-script/badge/icon)](http://86.20.180.136:8080/job/iot-lora-installer-script/)
+[![Build Status](https://jenkins.ryanteck.net:8433/job/iot-lora-gateway/badge/icon)](https://jenkins.ryanteck.net:8433/job/iot-lora-gateway/)
 
 Github repo for some of our LoRa Gateway HAT Files for different tasks. See below for a detailed description.
 
