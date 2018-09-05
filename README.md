@@ -6,6 +6,8 @@ Github repo for some of our LoRa Gateway HAT Files for different tasks. See belo
 You can either setup your gateway by using the one line installer script on Raspbian or instead, use our pre-made SD card image which has all of this already included.
 
 
+
+
 # Files Included
 ### iot-lora-installer
 This is our one line installer that will install the following software.
@@ -24,7 +26,13 @@ Our template for systemd that will automatically start the packet forwarder inst
 ### Reset script
 A basic bash script to reset the concentrator, required by our systemd template to automatically launch on boot.
 
-###Reset RPi script
+### Reset RPi script
 A little script that should reset the Raspberry Pi back to default settings. Used primarily for our jenkins build server.
-###Test RPi script
-Another little script for our jenkins build server
+
+## Contributing to this repo
+Please make sure any changes are made to code are done from the master branch and not the release branch. The release branch is only for once it has passed compiling on the boards we are testing on.
+
+If you have an SBC you wish to use which isn't in our supported list then create an issue for it with the correct tag for board requests. Even if it does work with another board doing this means we can document it.
+
+
+
