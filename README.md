@@ -1,5 +1,5 @@
 # iot-lora-gateway
-[![Build Status](https://jenkins.ryanteck.net:8433/job/iot-lora-gateway/badge/icon)](https://jenkins.ryanteck.net:8433/job/iot-lora-gateway/)
+[![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/)
 
 Github repo for some of our LoRa Gateway HAT Files for different tasks. See below for a detailed description.
 
