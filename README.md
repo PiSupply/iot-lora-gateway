@@ -36,17 +36,18 @@ Please make sure any changes are made to code are done from the master branch an
 If you have an SBC you wish to use which isn't in our supported list then create an issue for it with the correct tag for board requests. Even if it does work with another board doing this means we can document it.
 
 ##Automated Testing Status
-*Raspberry Pi B+*
+
+**Raspberry Pi B+**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%20B+/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%20B+/)
 
-*Raspberry Pi 2B*
+**Raspberry Pi 2B**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%202B/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%202B/)
 
-*Raspberry Pi 3B+*
+**Raspberry Pi 3B+**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%203B+/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%203B+/)
 
-*Asus Tinkerboard S2*
+**Asus Tinkerboard S2**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=ASUS%20Tinkerboard%20S/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=ASUS%20Tinkerboard%20S/)
 
-*ODroid C2*
+**ODroid C2**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Odroid%20C2/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Odroid%20C2/)
