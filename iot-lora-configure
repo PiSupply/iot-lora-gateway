@@ -41,12 +41,6 @@ serverDetails = d.menu("Please select the bridge for your gateway",
                                 ])
 locationDetails = d.form("Location",[("Latitude",1,1,"",1,15,12,12),("Longitude",3,1,"",3,15,12,12),("Altitude",5,1,"",5,15,5,5),])
 
-#Get the converter
-backplaneDetails = d.menu("Please select what Backplane you are using, this sets the reset pin.",
-                       choices=[("gpio22", "Pi Supply LoRa Gateway HAT"),
-                                ("gpio22", "Other - Pin 22"),
-                                ("gpio11", "Other - Pin 11")
-                                ])
 
 d.msgbox("The configuration script will now ask you for your TTN Key from the console. Please paste it in and then press enter.", height=20, width=80)
 keyDetails = input("TTN Console Key: ")
@@ -55,14 +49,14 @@ d.msgbox("The configuration script will now configure the packet forwarder, enab
 
 #Now lets set the arrays with each of the pins and servers and such
 freqList = [
-    ["Asia 1", "/opt/iot-lora-gateway/global_confs/AS1-global_conf.json"],
-    ["Asia 2", "/opt/iot-lora-gateway/global_confs/AS1-global_conf.json"],
-    ["Australia", "/opt/iot-lora-gateway/global_confs/AU-global_conf.json"],
-    ["China", "/opt/iot-lora-gateway/global_confs/CN-global_conf.json"],
-    ["Europe", "/opt/iot-lora-gateway/global_confs/EU-global_conf.json"],
-    ["India", "/opt/iot-lora-gateway/global_confs/IN-global_conf.json"],
-    ["Korea", "/opt/iot-lora-gateway/global_confs/KR-global_conf.json"],
-    ["United States", "/opt/iot-lora-gateway/global_confs/US-global_conf.json"]
+    ["Asia 1", "/boot/iotloragateway/global_confs/AS1-global_conf.json"],
+    ["Asia 2", "/boot/iotloragateway/global_confs/AS1-global_conf.json"],
+    ["Australia", "/boot/iotloragateway/global_confs/AU-global_conf.json"],
+    ["China", "/boot/iotloragateway/global_confs/CN-global_conf.json"],
+    ["Europe", "/boot/iotloragateway/global_confs/EU-global_conf.json"],
+    ["India", "/boot/iotloragateway/global_confs/IN-global_conf.json"],
+    ["Korea", "/boot/iotloragateway/global_confs/KR-global_conf.json"],
+    ["United States", "/boot/iotloragateway/global_confs/US-global_conf.json"]
 ]
 serverList = [
     ["United Kingdom", "ttn.thingsconnected.net"],
@@ -75,29 +69,19 @@ serverList = [
     ["US West","router.us.thethings.network" ]
 ]
 
-pinList = [
-    ["gpio22","/opt/iot-lora-gateway/global_confs/start-pin22.sh"],
-    ["gpio11","/opt/iot-lora-gateway/global_confs/start-pin11.sh"]
-]
+
 freqDict = dict(freqList)
 serverDict = dict(serverList)
 boardDict = dict(pinList)
 
 #Now ready for setup!
 
-#Enable SPI on the Raspberry Pi
-
-os.system("raspi-config nonint do_spi 0")
-#Confirm SSH Server is open
-os.system("raspi-config nonint do_ssh 0")
-#SSH and SPI are setup, now lets configure the packet forwarder
-
 #Build the local_conf.json file
-shutil.copyfile("/opt/iot-lora-gateway/global_confs/local_conf.json.bak","/opt/iot-lora-gateway/local_conf.json")
+shutil.copyfile("/boot/iotloragateway/global_confs/local_conf.json.bak","/boot/iotloragateway/local_conf.json")
 #Generate a gateway UID
 gatewayGenId = str.encode("IOT"+gatewayIdDetails[1][-5:]);
 gatewayGenId = codecs.encode(gatewayGenId,"hex")
-configLocation = '/opt/iot-lora-gateway/local_conf.json'
+configLocation = '/boot/iotloragateway/local_conf.json'
 with open(configLocation, 'r') as f:
     data = json.load(f)
 
@@ -117,8 +101,8 @@ with open(configLocation, 'w') as f:
     json.dump(data, f, indent=4)
 
 #Copy the frequency plan over
-shutil.copyfile(freqDict[frequencyDetails[1]],"/opt/iot-lora-gateway/global_conf.json")
-shutil.copyfile(boardDict[backplaneDetails[1]],"/opt/iot-lora-gateway/start.sh")
-st = os.stat("/opt/iot-lora-gateway/start.sh")
-os.chmod("/opt/iot-lora-gateway/start.sh",st.st_mode | 0o111)
+shutil.copyfile(freqDict[frequencyDetails[1]],"/boot/iotloragateway/global_conf.json")
+shutil.copyfile(boardDict[backplaneDetails[1]],"/boot/iotloragateway/start.sh")
+st = os.stat("/boot/iotloragateway/start.sh")
+os.chmod("/boot/iotloragateway/start.sh",st.st_mode | 0o111)
 #Finally create a gateway installer
