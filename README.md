@@ -40,14 +40,24 @@ If you have an SBC you wish to use which isn't in our supported list then create
 **Raspberry Pi B+**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%20B+/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%20B+/)
 
+Running Raspbian Lite 2018-06-27-stretch
+
 **Raspberry Pi 2B**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%202B/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%202B/)
+
+Running Raspbian Lite 2018-06-27-stretch
 
 **Raspberry Pi 3B+**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%203B+/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%203B+/)
 
+Running Raspbian Lite 2018-06-27-stretch
+
 **Asus Tinkerboard S2**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=ASUS%20Tinkerboard%20S/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=ASUS%20Tinkerboard%20S/)
 
+Running Armbian 5.59 Ubuntu 18.04 4.14
+
 **ODroid C2**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Odroid%20C2/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Odroid%20C2/)
+
+Running ODroid's Ubuntu 18.04 Minimal 20180626
