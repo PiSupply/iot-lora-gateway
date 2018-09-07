@@ -42,10 +42,6 @@ If you have an SBC you wish to use which isn't in our supported list then create
 
 Running Raspbian Lite 2018-06-27-stretch
 
-**Raspberry Pi 2B**
-[![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%202B/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%202B/)
-
-Running Raspbian Lite 2018-06-27-stretch
 
 **Raspberry Pi 3B+**
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%203B+/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Raspberry%20Pi%203B+/)
