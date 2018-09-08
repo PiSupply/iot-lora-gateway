@@ -29,7 +29,7 @@ sleep 10
 ##TODO
 ##We need to check which system this is running on
 cat /proc/device-tree/model
-
+#Set variable model to 0 for rpi, 1 for tinkerboard, 2 for odroid c2. We don't need tosplit all RPi models
 
 
 ##Update apt repo list, upgrade any other packages and then install the required packages.
