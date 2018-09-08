@@ -22,16 +22,13 @@ echo '''
 This script will install the software required to get your Pi Supply
 IoT Lora Gateway HAT Up and running with The Things Network
 
-If you are happy for this to run press type "Yes" and press enter.
-Otherwise press enter to quit.
+The script will automatically continue in 10 seconds. If you are not happy press Control + C to quit.
 '''
-##TODO Run user check to see if they confirm!
-#Check if the user said yes
-
+sleep 10
 
 ##TODO
 ##We need to check which system this is running on
-
+cat /proc/device-tree/model
 
 
 
