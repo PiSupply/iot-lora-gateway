@@ -112,9 +112,9 @@ os.chdir("%s/lora_gateway/libloragw" % compilation_dir)
 if(modelUsed == "Raspberry"):
     platform = "iotloragw_rpi"
 if(modelUsed == "Rockchip"):
-    platform = 'iotloragw_tnk'
+    platform = "iotloragw_tnk"
 if(modelUsed == "ODROID-C2"):
-    platform = 'iotloragw_odc2'
+    platform = "iotloragw_odc2"
 
 os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= %s/g' library.cfg" % platform)
 
