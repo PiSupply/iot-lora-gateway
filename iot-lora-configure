@@ -72,7 +72,6 @@ serverList = [
 
 freqDict = dict(freqList)
 serverDict = dict(serverList)
-boardDict = dict(pinList)
 
 #Now ready for setup!
 

@@ -6,7 +6,7 @@ Github repo for some of our LoRa Gateway HAT Files for different tasks. See belo
 
 You can either setup your gateway by using the one line installer script on Raspbian or instead, use our pre-made SD card image which has all of this already included and saves the time it requires to compile!
 
-This process takes around 5 Minutes to run on RPi 2B,3B,3B+ & Odroid C2 & Asus Tinkerboards. It takes around 15 minutes on RPi Models B+, A+ & Zeros
+This process takes around 5 Minutes to run on RPi 2B,3B,3B+ & Odroid C2 & Asus Tinkerboards. It takes around 15 minutes on RPi Models B+, A+ & Zeros. However can take even longer on slow internet connections. Please allow up to 30 minutes.
 
 #installation
 1. Login via SSH or console
