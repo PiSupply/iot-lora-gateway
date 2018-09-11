@@ -116,18 +116,25 @@ os.system("make")
 ##And move this up one directory for the user to run
 os.system("cp /opt/iotloragateway/dev/packet_forwarder/mp_pkt_fwd/mp_pkt_fwd /opt/iotloragateway/iot-lora-gateway")
 
-#Move to the directory with all of our template configuration files
+##Move to the directory with all of our template configuration files
 os.chdir("/opt/iotloragateway/dev/iot-lora-gateway")
 
-#Create folders on the SD Card's boot, this will get ignored if it all exsists
+##Create folders on the SD Card's boot, this will get ignored if it all exsists
+os.system("mkdir /boot/iotloragateway")
+os.system("mkdir /boot/iotloragateway/global_confs")
 
-#Copy all of the template files over
+##Copy all of the template files over
+configFiles = ["EU-global_conf.json","AS1-global_conf.json","AS2-global_conf.json","AU-global_conf.json","IN-global_conf.json","KR-global_conf.json","US-global_conf.json"]
+for configFile in configFiles:
+    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/template_configs/"+configFile+" /boot/iotloragateway/global_confs/"+configFile+".json")
 
-#Copy over the local config files
+##Copy over the local config files
+os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/local_conf.json /boot/iotloragateway/local_conf.json")
 
-#And copy over the service files
+##And copy over the service files
 
-#Cppy over the correct reset script into the /opt directory
+
+##Cppy over the correct reset script into the /opt directory
 if(modelUsed == "Raspberry"):
     os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/start-rpi.sh /opt/iotloragateway/iot-lora-gateway-reset.sh")
 if(modelUsed == "Rockchip"):
