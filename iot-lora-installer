@@ -128,10 +128,20 @@ os.chdir("/opt/iotloragateway/dev/iot-lora-gateway")
 #And copy over the service files
 
 #Cppy over the correct reset script into the /opt directory
+if(modelUsed == "Raspberry"):
+    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/start-rpi.sh /opt/iotloragateway/iot-lora-gateway-reset.sh")
+if(modelUsed == "Rockchip"):
+    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/start-tinker.sh /opt/iotloragateway/iot-lora-gateway-reset.sh")
+if(modelUsed == "ODRID-C2"):
+    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/start-odroidc2.sh /opt/iotloragateway/iot-lora-gateway-reset.sh")
 
 ##if raspberry Pi enable the SPI bus and set the core clock to 250mhz
+if(modelUsed == "Raspberry"):
+    os.system("raspi-config nonint do_spi 0")
 
 ##Reload systemctl daemon and enable the service
+os.system("systemctl daemon-reload")
+os.system("systemctl enable iot-lora-gateway.service")
 
 ##Copy the configuration script to /usr/local/bin
 shutil.copyfile("/opt/iotloragateway/dev/iot-lora-gateway/iot-lora-configure","/usr/local/bin/iot-lora-configure")
