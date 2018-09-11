@@ -48,16 +48,18 @@ modelUsed = dtModel.read().split(" ")[0]
 print ("Detected SBC: %s" %modelUsed)
 
 
-
+print("Updating, Upgrading and installing packages from APT")
 ##Update Apt Repo List, Upgrade Any Other Packages and then install the required Packages
 os.system("apt-get update && apt-get upgrade -y && apt-get install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf git pkg-config protobuf-c-compiler -y")
 
+print("Deleting old files")
 ##Delete all of the old softwar,e this is fine as the configuration files are stored on the /boot partition
 os.system("rm -rf /opt/iotloragateway")
 ##Remake the directory structure
 os.system("mkdir -p /opt/iotloragateway")
 os.system("mkdir -p /opt/iotloragateway/dev")
 
+print("Downloading software to compile")
 ##Download all fo the software required
 os.chdir("/opt/iotloragateway/dev")
 os.system("git clone https://github.com/PiSupply/lora_gateway.git")
@@ -66,31 +68,49 @@ os.system("git clone https://github.com/PiSupply/ttn-gateway-connector.git")
 os.system("git clone https://github.com/PiSupply/protobuf-c.git")
 os.system("git clone https://github.com/PiSupply/packet_forwarder.git")
 os.system("git clone https://github.com/PiSupply/iot-lora-gateway.git")
-##First lets compile the LoRa Gateway driver library which provides the SPI Interface
 
+print("Compiling LoRa Gateway Driver")
+##First lets compile the LoRa Gateway driver library which provides the SPI Interface
+os.chdir("/opt/iotloragateway/dev/lora_gateway/libloragw")
 ##Change the configuration file based on what system is being used.
 
 ##Compile the gateway driver
+os.system("make")
 
+print("Compiling protobuf-c library")
 ##Move to the Protobuf-c library and compile it
-
-
+os.chdir("/opt/iotloragateway/dev/protobuf-c")
+os.system("./autogen.sh")
+os.system("./configure")
+os.system("make protobuf-c/libprotobuf-c.la")
+os.system("mkdir bin")
 ##Install the library
+os.system("./libtool install /usr/bin/install -c protobuf-c/libprotobuf-c.la `pwd`/bin")
+os.system("rm -f `pwd`/bin/*so*")
 
+print("Compiling MQTT library")
 ##Move to the MQTT Embedded library
+os.chdir("/opt/iotloragateway/dev/paho.mqtt.embedded-c")
+os.system("make")
+os.system("make install")
 
-
+print("Compiling TTN Connector library")
 ##Move to the TTN Connector library
-
+os.chdir("/opt/iotloragateway/dev/ttn-gateway-connector")
+os.system("cp config.mk.in config.mk")
+os.system("make")
 ##Copy it to the /usr/lib directory for usage
+os.system("cp /opt/iotloragateway/dev/ttn-gateway-connector/bin/libttn-gateway-connector.so /usr/lib")
 
 #Move to the packet forwarder itself
-
+os.chdir("/opt/iotloragateway/dev/packet_forwarder/mp_pkt_fwd")
 ##Compile it
-
+os.system("make")
 ##And move this up one directory for the user to run
+os.system("cp /opt/iotloragateway/dev/packet_forwarder/mp_pkt_fwd/mp_pkt_fwd /opt/iotloragateway/iot-lora-gateway")
 
 #Move to the directory with all of our template configuration files
+os.chdir("/opt/iotloragateway/dev/iot-lora-gateway")
 
 #Create folders on the SD Card's boot, this will get ignored if it all exsists
 
