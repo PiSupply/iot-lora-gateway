@@ -154,6 +154,8 @@ os.system("systemctl enable iot-lora-gateway.service")
 
 ##Copy the configuration script to /usr/local/bin
 shutil.copyfile("/opt/iotloragateway/dev/iot-lora-gateway/iot-lora-configure","/usr/local/bin/iot-lora-configure")
+st = os.stat("/usr/local/bin/iot-lora-configure")
+os.chmod("/usr/local/bin/iot-lora-configure",st.st_mode | 0o111)
 
 print('''
   ___ ___ _____   _        ___         ___      _
