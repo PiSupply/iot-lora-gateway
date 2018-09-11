@@ -76,7 +76,7 @@ serverDict = dict(serverList)
 #Now ready for setup!
 
 #Build the local_conf.json file
-shutil.copyfile("/boot/iotloragateway/global_confs/local_conf.json.bak","/boot/iotloragateway/local_conf.json")
+shutil.copyfile("/boot/iotloragateway/global_confs/local_conf.json.template","/boot/iotloragateway/local_conf.json")
 #Generate a gateway UID
 gatewayGenId = str.encode("IOT"+gatewayIdDetails[1][-5:]);
 gatewayGenId = codecs.encode(gatewayGenId,"hex")
