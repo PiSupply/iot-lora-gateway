@@ -1,23 +1,23 @@
 #!/usr/bin/python3
-#IOT LoRa Gateway Configuration Script,
-import os
-#Setup Dialog Box
-import json
-from pprint import pprint
+# IOT LoRa Gateway Configuration Script,
+# Setup Dialog Box
 from dialog import Dialog
 import shutil
 import codecs
+import json
+import os
 d = Dialog(dialog="dialog")
 d.set_background_title("IOT LoRa Gateway Configurator")
 
-d.msgbox("This installer script will ask you questions to setup your gateway. \r\n \r\n At the same time on another device you will require to have already signed up to an account with the Things Network and Created a Gateway to fill out this script.", height=20, width=80)
+d.msgbox("This installer script will ask you questions to setup your gateway.\r\n \r\n At the same time on another device you will require to have already signed up to an account with the Things Network and Created a Gateway to fill out this script.", height=20, width=80)
 
 
 
 gatewayIdDetails = d.inputbox("Please enter the Gateway ID that you setup with The Things Network")
 descriptionDetails = d.inputbox("Please enter a short description of the gateway.")
 emailDetails = d.inputbox("Please enter a contact email address")
-#Get The Frequency
+
+# Get The Frequency
 frequencyDetails = d.menu("Please select the frequency of your gateway:",
                        choices=[("Europe", "868MHz"),
                                 ("Asia 1", "920-923MHz"),
@@ -28,7 +28,7 @@ frequencyDetails = d.menu("Please select the frequency of your gateway:",
                                 ("Korea", "920-923MHz"),
                                 ("United States", "915Mhz")
                                 ])
-#Get the Server
+# Get the Server
 serverDetails = d.menu("Please select the bridge for your gateway",
                        choices=[("Europe", "ttn-router-eu"),
                                 ("United Kingdom", "digitalcatapult-uk-router"),
@@ -39,7 +39,9 @@ serverDetails = d.menu("Please select the bridge for your gateway",
                                 ("Japan", "ttn-router-jp"),
                                 ("US West", "ttn-router-us-west")
                                 ])
-locationDetails = d.form("Location",[("Latitude",1,1,"",1,15,12,12),("Longitude",3,1,"",3,15,12,12),("Altitude",5,1,"",5,15,5,5),])
+locationDetails = d.form("Location",[("Latitude", 1, 1, "", 1, 15, 12, 12),
+("Longitude", 3, 1, "", 3, 15, 12, 12),
+("Altitude", 5, 1, "", 5, 15, 5, 5),])
 
 
 d.msgbox("The configuration script will now ask you for your TTN Key from the console. Please paste it in and then press enter.", height=20, width=80)
@@ -47,7 +49,7 @@ keyDetails = input("TTN Console Key: ")
 
 d.msgbox("The configuration script will now configure the packet forwarder, enable SPI and confirm SSH is enabled for remote management.", height=20, width=80)
 
-#Now lets set the arrays with each of the pins and servers and such
+# Now lets set the arrays with each of the pins and servers and such
 freqList = [
     ["Asia 1", "/boot/iotloragateway/global_confs/AS1-global_conf.json"],
     ["Asia 2", "/boot/iotloragateway/global_confs/AS1-global_conf.json"],
@@ -61,30 +63,30 @@ freqList = [
 serverList = [
     ["United Kingdom", "ttn.thingsconnected.net"],
     ["Australia", "thethings.meshed.com.au"],
-    ["Switzerland","ttn.opennetworkinfrastructure.org"],
-    ["SE Asia","router.as.thethings.network" ],
-    ["Brazil","router.brazil.thethings.network" ],
-    ["Europe","router.eu.thethings.network" ],
-    ["Japan","router.thethingsnetwork.jp" ],
-    ["US West","router.us.thethings.network" ]
+    ["Switzerland", "ttn.opennetworkinfrastructure.org"],
+    ["SE Asia", "router.as.thethings.network"],
+    ["Brazil", "router.brazil.thethings.network"],
+    ["Europe", "router.eu.thethings.network"],
+    ["Japan", "router.thethingsnetwork.jp"],
+    ["US West", "router.us.thethings.network"]
 ]
 
 
 freqDict = dict(freqList)
 serverDict = dict(serverList)
 
-#Now ready for setup!
+# Now ready for setup!
 
-#Build the local_conf.json file
+# Build the local_conf.json file
 shutil.copyfile("/boot/iotloragateway/global_confs/local_conf.json.template","/boot/iotloragateway/local_conf.json")
-#Generate a gateway UID
-gatewayGenId = str.encode("IOT"+gatewayIdDetails[1][-5:]);
-gatewayGenId = codecs.encode(gatewayGenId,"hex")
+# Generate a gateway UID
+gatewayGenId = str.encode("IOT"+gatewayIdDetails[1][-5:])
+gatewayGenId = codecs.encode(gatewayGenId, "hex")
 configLocation = '/boot/iotloragateway/local_conf.json'
 with open(configLocation, 'r') as f:
     data = json.load(f)
 
-    #Lets set the easy stuff first
+    # Lets set the easy stuff first
     data["gateway_conf"]["servers"][0]["serv_gw_id"] = gatewayIdDetails[1]
     data["gateway_conf"]["contact_email"] = emailDetails[1]
     data["gateway_conf"]["description"] = descriptionDetails[1]
@@ -99,8 +101,8 @@ os.remove(configLocation)
 with open(configLocation, 'w') as f:
     json.dump(data, f, indent=4)
 
-#Copy the frequency plan over
-shutil.copyfile(freqDict[frequencyDetails[1]],"/boot/iotloragateway/global_conf.json")
+# Copy the frequency plan over
+shutil.copyfile(freqDict[frequencyDetails[1]], "/boot/iotloragateway/global_conf.json")
 st = os.stat("/opt/iotloragateway/iot-lora-gateway-reset.sh")
-os.chmod("/opt/iotloragateway/iot-lora-gateway-reset.sh",st.st_mode | 0o111)
-#Finally create a gateway installer
+os.chmod("/opt/iotloragateway/iot-lora-gateway-reset.sh", st.st_mode | 0o111)
+# Finally create a gateway installer
