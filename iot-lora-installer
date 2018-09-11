@@ -59,7 +59,7 @@ os.system("mkdir -p /opt/iotloragateway")
 os.system("mkdir -p /opt/iotloragateway/dev")
 
 ##Download all fo the software required
-os.system("cd /opt/iotloragateway/dev")
+os.chdir("/opt/iotloragateway/dev")
 os.system("git clone https://github.com/PiSupply/lora_gateway.git")
 os.system("git clone https://github.com/PiSupply/paho.mqtt.embedded-c.git")
 os.system("git clone https://github.com/PiSupply/ttn-gateway-connector.git")
