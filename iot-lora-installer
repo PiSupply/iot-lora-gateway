@@ -126,7 +126,7 @@ os.system("mkdir /boot/iotloragateway/global_confs")
 ##Copy all of the template files over
 configFiles = ["EU-global_conf.json","AS1-global_conf.json","AS2-global_conf.json","AU-global_conf.json","IN-global_conf.json","KR-global_conf.json","US-global_conf.json"]
 for configFile in configFiles:
-    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/template_configs/"+configFile+" /boot/iotloragateway/global_confs/"+configFile+".json")
+    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/"+configFile+" /boot/iotloragateway/global_confs/"+configFile+".json")
 
 ##Copy over the local config files
 os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/local_conf.json /boot/iotloragateway/local_conf.json")
