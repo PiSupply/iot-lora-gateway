@@ -49,8 +49,74 @@ print ("Detected SBC: %s" %modelUsed)
 
 
 
+##Update Apt Repo List, Upgrade Any Other Packages and then install the required Packages
 
 
+##Delete all of the old softwar,e this is fine as the configuration files are stored on the /boot partition
 
+##Remake the directory structure
+
+##Download all fo the software required
+
+##First lets compile the LoRa Gateway driver library which provides the SPI Interface
+
+##Change the configuration file based on what system is being used.
+
+##Compile the gateway driver
+
+##Move to the Protobuf-c library and compile it
+
+
+##Install the library
+
+##Move to the MQTT Embedded library
+
+
+##Move to the TTN Connector library
+
+##Copy it to the /usr/lib directory for usage
+
+#Move to the packet forwarder itself
+
+##Compile it
+
+##And move this up one directory for the user to run
+
+#Move to the directory with all of our template configuration files
+
+#Create folders on the SD Card's boot, this will get ignored if it all exsists
+
+#Copy all of the template files over
+
+#Copy over the local config files
+
+#And copy over the service files
+
+#Cppy over the correct reset script into the /opt directory
+
+##if raspberry Pi enable the SPI bus and set the core clock to 250mhz
+
+##Reload systemctl daemon and enable the service
+
+##Symlink the configuration python file so the user can run it from the terminal
+
+print('''
+  ___ ___ _____   _        ___         ___      _
+ |_ _/ _ \_   _| | |   ___| _ \__ _   / __|__ _| |_ _____ __ ____ _ _  _
+  | | (_) || |   | |__/ _ \   / _` | | (_ / _` |  _/ -_) V  V / _` | || |
+ |___\___/ |_|   |____\___/_|_\__,_|  \___\__,_|\__\___|\_/\_/\__,_|\_, |
+                                                                    |__/
+
+Congratulations the gateway software is now fully installed!
+
+You need to edit the configuration file for your gateway to be setup which is located
+at /boot/iotloragateway/
+
+You can either do this using a text editor or run "iot-lora-configure" for our
+wizard based editor.
+
+After upon rebooting your Raspberry Pi your gateway should be up and running.
+
+''')
 
 #File end
