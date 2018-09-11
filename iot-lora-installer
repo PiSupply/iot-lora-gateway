@@ -15,7 +15,7 @@ import os, sys
 ##End imports
 
 ##START
-print '''
+print ('''
 
   ___ ___ _____   _        ___         ___      _
  |_ _/ _ \_   _| | |   ___| _ \__ _   / __|__ _| |_ _____ __ ____ _ _  _
@@ -26,7 +26,7 @@ print '''
 This script will install the software required to get your Pi Supply
 IoT Lora Gateway HAT Up and running with The Things Network
 The script will automatically continue in 10 seconds. If you are not happy press Control + C to quit.
-'''
+''')
 sleep(10)
 
 ##TODO
