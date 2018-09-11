@@ -101,7 +101,6 @@ with open(configLocation, 'w') as f:
 
 #Copy the frequency plan over
 shutil.copyfile(freqDict[frequencyDetails[1]],"/boot/iotloragateway/global_conf.json")
-shutil.copyfile(boardDict[backplaneDetails[1]],"/boot/iotloragateway/start.sh")
 st = os.stat("/boot/iotloragateway/start.sh")
 os.chmod("/boot/iotloragateway/start.sh",st.st_mode | 0o111)
 #Finally create a gateway installer
