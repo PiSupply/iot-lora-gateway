@@ -45,7 +45,7 @@ except:
     print("Device Tree directory not found, this is likely because you are running this program on a normal computer or a non supported SBC")
     exit()
 modelUsed = dtModel.read().split(" ")[0]
-print "Detected SBC: %s" % modelUsed
+print ("Detected SBC: %s" %modelUsed)
 
 
 
