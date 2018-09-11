@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
 
-#IOT LoRa Installer
-#By Ryan Walmsley
-#This file downloads the current software for the LoRa Gateway Packet Forwarder By Kersing and installs it on your Raspberry Pi
-#At the same time it also enables SPI, Installs a service to automatically start it on boot, a configuration script and
-#Sets the core clock to a fixed frequency which fixes bugs on Models 3B & 3B+
+# IOT LoRa Installer
+# by Ryan Walmsley
+#
+# This file downloads the current software for the LoRa Gateway Packet
+# Forwarder by Kersing and installs it on your Raspberry Pi. At the same time
+# it also enables SPI, Installs a service to automatically start it on boot,
+# a configuration script and sets the core clock to a fixed frequency which
+# fixes bugs on Models 3B & 3B+.
+#
+# This software is designed to be run on a vanilla installation of Raspbian!
+# We cannot guarantee that it will not break other software you are running
+# on your Raspberry Pi.
 
-#This Software is designed to be run on a Vanilla installation of Raspbian! We cannot gaurantee that it will not break Other
-#Software you are running on your Raspberry Pi.
-
-##Imports!
+# Imports!
 from time import sleep
-import os, sys
+import os
 import shutil
-##End imports
+# End imports
 
-##START
-print ('''
+# START
+print('''
 
   ___ ___ _____   _        ___         ___      _
  |_ _/ _ \_   _| | |   ___| _ \__ _   / __|__ _| |_ _____ __ ____ _ _  _
@@ -24,45 +28,64 @@ print ('''
  |___\___/ |_|   |____\___/_|_\__,_|  \___\__,_|\__\___|\_/\_/\__,_|\_, |
                                                                     |__/
 
-This script will install the software required to get your Pi Supply
-IoT Lora Gateway HAT Up and running with The Things Network
-The script will automatically continue in 10 seconds. If you are not happy press Control + C to quit.
+This script will install the software required to get your Pi Supply IoT Lora
+Gateway HAT up and running with The Things Network.
+
+The script will automatically continue in 10 seconds.
+
+If you are not happy press Control + C to quit.
 ''')
+
 sleep(10)
 
-##Making Gateways, making lora Gateways, get some lora and put it in a gateway, making gateways, making lora gateways, Loraaaa gatewaysssss
-
-##We need to check which system this is running on
-
-#Set variable model to
-#Expected results:
-#RPi : Raspberry
-#Odroid C2: ODROID-C2
-#Tinkerboard: Rockchip
-#Unknown: 42
+# We need to check which system this is running on
+# Set variable model to
+# Expected results:
+# RPi : Raspberry
+# Odroid C2: ODROID-C2
+# Tinkerboard: Rockchip
+# Unknown: 42
 
 try:
-    dtModel = open('/proc/device-tree/model','r')
-except:
-    print("Device Tree directory not found, this is likely because you are running this program on a normal computer or a non supported SBC")
+    dtModel = open('/proc/device-tree/model', 'r')
+except Exception:
+    print("Device Tree directory not found, this is likely because you are "
+          "running this program on a normal computer or a non supported SBC")
     exit()
-modelUsed = dtModel.read().split(" ")[0]
-print ("Detected SBC: %s" %modelUsed)
 
+modelUsed = dtModel.read().split(" ")[0]
+print("Detected SBC: %s" % modelUsed)
 
 print("Updating, Upgrading and installing packages from APT")
-##Update Apt Repo List, Upgrade Any Other Packages and then install the required Packages
-os.system("apt-get update && apt-get upgrade -y && apt-get install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf git pkg-config protobuf-c-compiler -y")
+# Update Apt repository List, Upgrade Any Other Packages and then install the
+# required packages.
+os.system("apt-get update")
+os.system("apt-get upgrade -y")
+
+packages_to_install = ['python3-dialog',
+                       'protobuf-compiler',
+                       'libprotobuf-dev',
+                       'libprotoc-dev',
+                       'automake',
+                       'libtool',
+                       'autoconf',
+                       'git',
+                       'pkg-config',
+                       'protobuf-c-compiler']
+
+for package in packages_to_install:
+    os.system("apt-get install %s -y" % package)
 
 print("Deleting old files")
-##Delete all of the old softwar,e this is fine as the configuration files are stored on the /boot partition
+# Delete all of the old software this is fine as the configuration files are
+# stored on the /boot partition
 os.system("rm -rf /opt/iotloragateway")
-##Remake the directory structure
+# Remake the directory structure
 os.system("mkdir -p /opt/iotloragateway")
 os.system("mkdir -p /opt/iotloragateway/dev")
 
 print("Downloading software to compile")
-##Download all fo the software required
+# Download all of the software required
 os.chdir("/opt/iotloragateway/dev")
 os.system("git clone https://github.com/PiSupply/lora_gateway.git")
 os.system("git clone https://github.com/PiSupply/paho.mqtt.embedded-c.git")
@@ -71,91 +94,119 @@ os.system("git clone https://github.com/PiSupply/protobuf-c.git")
 os.system("git clone https://github.com/PiSupply/packet_forwarder.git")
 os.system("git clone https://github.com/PiSupply/iot-lora-gateway.git")
 
-print("Compiling LoRa Gateway Driver")
-##First lets compile the LoRa Gateway driver library which provides the SPI Interface
-os.chdir("/opt/iotloragateway/dev/lora_gateway/libloragw")
-##Change the configuration file based on what system is being used.
-if(modelUsed == "Raspberry"):
-    os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_rpi/g' library.cfg")
-if(modelUsed == "Rockchip"):
-    os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_tnk/g' library.cfg")
-if(modelUsed == "ODRID-C2"):
-    os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_odc2/g' library.cfg")
 
-##Compile the gateway driver
+print("Compiling LoRa Gateway Driver")
+# First lets compile the LoRa Gateway driver library which provides the SPI
+# interface
+
+# Define some directory variables.
+base_dir = "/opt/iotloragateway"
+compilation_dir = "%s/dev" % base_dir
+boot_dir = "/boot/iotloragateway"
+confs_dir = "%s/global_confs" % boot_dir
+
+os.chdir("%s/lora_gateway/libloragw" % compilation_dir)
+# Change the configuration file based on what system is being used.
+if(modelUsed == "Raspberry"):
+    platform = "iotloragw_rpi"
+if(modelUsed == "Rockchip"):
+    platform = 'iotloragw_tnk'
+if(modelUsed == "ODRID-C2"):
+    platform = 'iotloragw_odc2'
+
+os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= %s/g' library.cfg" % platform)
+
+# Compile the gateway driver
 os.system("make")
 
 print("Compiling protobuf-c library")
-##Move to the Protobuf-c library and compile it
-os.chdir("/opt/iotloragateway/dev/protobuf-c")
+# Move to the Protobuf-c library and compile it
+os.chdir("%s/protobuf-c" % compilation_dir)
 os.system("./autogen.sh")
 os.system("./configure")
 os.system("make protobuf-c/libprotobuf-c.la")
 os.system("mkdir bin")
-##Install the library
-os.system("./libtool install /usr/bin/install -c protobuf-c/libprotobuf-c.la `pwd`/bin")
+# Install the library
+install_cmd = './libtool install /usr/bin/install'
+os.system("%s -c protobuf-c/libprotobuf-c.la `pwd`/bin" % install_cmd)
 os.system("rm -f `pwd`/bin/*so*")
 
 print("Compiling MQTT library")
-##Move to the MQTT Embedded library
-os.chdir("/opt/iotloragateway/dev/paho.mqtt.embedded-c")
+# Move to the MQTT Embedded library
+os.chdir("%s/paho.mqtt.embedded-c" % compilation_dir)
 os.system("make")
 os.system("make install")
 
 print("Compiling TTN Connector library")
-##Move to the TTN Connector library
-os.chdir("/opt/iotloragateway/dev/ttn-gateway-connector")
+# Move to the TTN Connector library
+os.chdir("%s/ttn-gateway-connector" % compilation_dir)
 os.system("cp config.mk.in config.mk")
 os.system("make")
-##Copy it to the /usr/lib directory for usage
-os.system("cp /opt/iotloragateway/dev/ttn-gateway-connector/bin/libttn-gateway-connector.so /usr/lib")
+# Copy it to the /usr/lib directory for usage
+os.system("cp %s/ttn-gateway-connector/bin/libttn-gateway-connector.so"
+          " /usr/lib" % compilation_dir)
 
-#Move to the packet forwarder itself
-os.chdir("/opt/iotloragateway/dev/packet_forwarder/mp_pkt_fwd")
-##Compile it
+# Move to the packet forwarder itself
+os.chdir("%s/packet_forwarder/mp_pkt_fwd" % compilation_dir)
+# Compile it
 os.system("make")
-##And move this up one directory for the user to run
-os.system("cp /opt/iotloragateway/dev/packet_forwarder/mp_pkt_fwd/mp_pkt_fwd /opt/iotloragateway/iot-lora-gateway")
+# And move this up one directory for the user to run
+os.system("cp %s/packet_forwarder/mp_pkt_fwd/mp_pkt_fwd "
+          "/opt/iotloragateway/iot-lora-gateway" % compilation_dir)
 
-##Move to the directory with all of our template configuration files
-os.chdir("/opt/iotloragateway/dev/iot-lora-gateway")
+# Move to the directory with all of our template configuration files
+os.chdir("%s/iot-lora-gateway" % compilation_dir)
 
-##Create folders on the SD Card's boot, this will get ignored if it all exsists
-os.system("mkdir /boot/iotloragateway")
-os.system("mkdir /boot/iotloragateway/global_confs")
+# Create folders on the SD Card's boot, this will get ignored if it all exists
+os.system("mkdir %s" % boot_dir)
+os.system("mkdir %s" % confs_dir)
 
-##Copy all of the template files over
-configFiles = ["EU-global_conf.json","AS1-global_conf.json","AS2-global_conf.json","AU-global_conf.json","IN-global_conf.json","KR-global_conf.json","US-global_conf.json"]
+# Copy all of the template files over
+configFiles = ["EU-global_conf.json",
+               "AS1-global_conf.json",
+               "AS2-global_conf.json",
+               "AU-global_conf.json",
+               "IN-global_conf.json",
+               "KR-global_conf.json",
+               "US-global_conf.json"]
+
 for configFile in configFiles:
-    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/"+configFile+" /boot/iotloragateway/global_confs/"+configFile)
+    os.system("cp %s/iot-lora-gateway/template_configs/%s %s/%s"
+              % (compilation_dir, configFile, confs_dir, configFile))
 
-##Copy over the local config files
-os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/local_conf.json.template /boot/iotloragateway/global_confs/local_conf.json.template")
+# Copy over the local config files
+os.system("cp %s/iot-lora-gateway/template_configs/local_conf.json.template "
+          "%s/local_conf.json.template" % (compilation_dir, confs_dir))
 
-##And copy over the service files
-os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/iot-lora-gateway.service /lib/systemd/system/iot-lora-gateway.service")
+# And copy over the service files
+os.system("cp %s/iot-lora-gateway/template_configs/iot-lora-gateway.service "
+          "/lib/systemd/system/iot-lora-gateway.service" % compilation_dir)
 
 
-##Cppy over the correct reset script into the /opt directory
+# Copy over the correct reset script into the /opt directory
 if(modelUsed == "Raspberry"):
-    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/start-rpi.sh /opt/iotloragateway/iot-lora-gateway-reset.sh")
+    os.system("cp %s/iot-lora-gateway/template_configs/start-rpi.sh "
+              "%s/iot-lora-gateway-reset.sh" % (compilation_dir, base_dir))
 if(modelUsed == "Rockchip"):
-    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/start-tinker.sh /opt/iotloragateway/iot-lora-gateway-reset.sh")
+    os.system("cp %s/iot-lora-gateway/template_configs/start-tinker.sh "
+              "%s/iot-lora-gateway-reset.sh" % (compilation_dir, base_dir))
 if(modelUsed == "ODRID-C2"):
-    os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/start-odroidc2.sh /opt/iotloragateway/iot-lora-gateway-reset.sh")
+    os.system("cp %s/iot-lora-gateway/template_configs/start-odroidc2.sh "
+              "%s/iot-lora-gateway-reset.sh" % (compilation_dir, base_dir))
 
-##if raspberry Pi enable the SPI bus and set the core clock to 250mhz
+# if raspberry Pi enable the SPI bus and set the core clock to 250mhz
 if(modelUsed == "Raspberry"):
     os.system("raspi-config nonint do_spi 0")
 
-##Reload systemctl daemon and enable the service
+# Reload systemctl daemon and enable the service
 os.system("systemctl daemon-reload")
 os.system("systemctl enable iot-lora-gateway.service")
 
-##Copy the configuration script to /usr/local/bin
-shutil.copyfile("/opt/iotloragateway/dev/iot-lora-gateway/iot-lora-configure","/usr/local/bin/iot-lora-configure")
+# Copy the configuration script to /usr/local/bin
+shutil.copyfile("%s/iot-lora-gateway/iot-lora-configure" % compilation_dir,
+                "/usr/local/bin/iot-lora-configure")
 st = os.stat("/usr/local/bin/iot-lora-configure")
-os.chmod("/usr/local/bin/iot-lora-configure",st.st_mode | 0o111)
+os.chmod("/usr/local/bin/iot-lora-configure", st.st_mode | 0o111)
 
 print('''
   ___ ___ _____   _        ___         ___      _
@@ -166,8 +217,8 @@ print('''
 
 Congratulations the gateway software is now fully installed!
 
-You need to edit the configuration file for your gateway to be setup which is located
-at /boot/iotloragateway/
+You need to edit the configuration file for your gateway to be setup which
+is located at /boot/iotloragateway/
 
 You can either do this using a text editor or run "iot-lora-configure" for our
 wizard based editor.
@@ -176,4 +227,4 @@ After upon rebooting your Raspberry Pi your gateway should be up and running.
 
 ''')
 
-#File end
+# File end
