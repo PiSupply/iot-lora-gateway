@@ -75,11 +75,11 @@ print("Compiling LoRa Gateway Driver")
 os.chdir("/opt/iotloragateway/dev/lora_gateway/libloragw")
 ##Change the configuration file based on what system is being used.
 if(modelUsed == "Raspberry"):
-    os.run("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_rpi/g' library.cfg")
+    os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_rpi/g' library.cfg")
 if(modelUsed == "Rockchip"):
-    os.run("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_tnk/g' library.cfg")
+    os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_tnk/g' library.cfg")
 if(modelUsed == "ODRID-C2"):
-    os.run("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_odc2/g' library.cfg")
+    os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= iotloragw_odc2/g' library.cfg")
 
 ##Compile the gateway driver
 os.system("make")
