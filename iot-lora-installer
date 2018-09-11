@@ -12,6 +12,7 @@
 ##Imports!
 from time import sleep
 import os, sys
+import shutil
 ##End imports
 
 ##START
@@ -132,7 +133,8 @@ os.chdir("/opt/iotloragateway/dev/iot-lora-gateway")
 
 ##Reload systemctl daemon and enable the service
 
-##Symlink the configuration python file so the user can run it from the terminal
+##Copy the configuration script to /usr/local/bin
+shutil.copyfile("/opt/iotloragateway/dev/iot-lora-gateway/iot-lora-configure","/usr/local/bin/iot-lora-configure")
 
 print('''
   ___ ___ _____   _        ___         ___      _
