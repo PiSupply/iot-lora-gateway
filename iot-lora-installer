@@ -30,7 +30,8 @@ The script will automatically continue in 10 seconds. If you are not happy press
 ''')
 sleep(10)
 
-##TODO
+##Making Gateways, making lora Gateways, get some lora and put it in a gateway, making gateways, making lora gateways, Loraaaa gatewaysssss
+
 ##We need to check which system this is running on
 
 #Set variable model to
@@ -129,9 +130,10 @@ for configFile in configFiles:
     os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/"+configFile+" /boot/iotloragateway/global_confs/"+configFile)
 
 ##Copy over the local config files
-os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/local_conf.json /boot/iotloragateway/local_conf.json")
+os.system("cp /opt/iotloragateway/dev/iot-lora-gateway/template_configs/local_conf.json /boot/iotloragateway/local_conf.json.template")
 
 ##And copy over the service files
+os.sysmem
 
 
 ##Cppy over the correct reset script into the /opt directory
