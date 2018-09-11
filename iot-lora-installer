@@ -64,19 +64,18 @@ print("Updating, Upgrading and installing packages from APT")
 os.system("apt-get update")
 os.system("apt-get upgrade -y")
 
-packages_to_install = ['python3-dialog',
-                       'protobuf-compiler',
-                       'libprotobuf-dev',
-                       'libprotoc-dev',
-                       'automake',
-                       'libtool',
-                       'autoconf',
-                       'git',
-                       'pkg-config',
-                       'protobuf-c-compiler']
+packages = ['python3-dialog',
+            'protobuf-compiler',
+            'libprotobuf-dev',
+            'libprotoc-dev',
+            'automake',
+            'libtool',
+            'autoconf',
+            'git',
+            'pkg-config',
+            'protobuf-c-compiler']
 
-for package in packages_to_install:
-    os.system("apt-get install %s -y" % package)
+os.system("apt-get install %s -y" % ' '.join(packages))
 
 print("Deleting old files")
 # Delete all of the old software this is fine as the configuration files are
