@@ -2,7 +2,8 @@
 
 # IOT LoRa Installer
 # by Ryan Walmsley
-#
+#(C) Pi Supply 2018
+
 # This file downloads the current software for the LoRa Gateway Packet
 # Forwarder by Kersing and installs it on your Raspberry Pi. At the same time
 # it also enables SPI, Installs a service to automatically start it on boot,
@@ -12,6 +13,9 @@
 # This software is designed to be run on a vanilla installation of Raspbian!
 # We cannot guarantee that it will not break other software you are running
 # on your Raspberry Pi.
+
+#Making Gateways, making lora Gateways, get some lora and put it in a gateway,
+#making gateways, making lora gateways, Loraaaa gatewaysssss	
 
 # Imports!
 from time import sleep
