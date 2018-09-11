@@ -30,8 +30,15 @@ sleep 10
 ##We need to check which system this is running on
 
 #Set variable model to 0 for rpi, 1 for tinkerboard, 2 for odroid c2. We don't need tosplit all RPi models
-PLATFORM=cat /proc/device-tree/model
+#Expected results:
+#RPi B+:
+#Odroid C2:
+#Tinkerboard:
+#Rpi 3b+:
+PLATFORM="tail /proc/device-tree/model"
 echo $PLATFORM
+PLATFORMID=42
+if[]
 
 
 ##Update apt repo list, upgrade any other packages and then install the required packages.
