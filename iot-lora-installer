@@ -147,6 +147,7 @@ if(modelUsed == "ODRID-C2"):
 ##if raspberry Pi enable the SPI bus and set the core clock to 250mhz
 if(modelUsed == "Raspberry"):
     os.system("raspi-config nonint do_spi 0")
+    os.system("raspi-config nonint set_config_var core_freq 250 /boot/config.txt")
 
 ##Reload systemctl daemon and enable the service
 os.system("systemctl daemon-reload")
