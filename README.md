@@ -11,7 +11,8 @@ This process takes around 5 Minutes to run on RPi 2B,3B,3B+ & Odroid C2 & Asus T
 #installation
 1. Login via SSH or console
 2. Run the following command and the software will be all downloaded and compiled
-```curl -sSL https://raw.githubusercontent.com/PiSupply/iot-lora-gateway/master/iot-lora-installer | sudo python3
+```
+curl -sSL https://raw.githubusercontent.com/PiSupply/iot-lora-gateway/master/iot-lora-installer | sudo python3
 ```
 
 
