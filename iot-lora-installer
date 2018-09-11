@@ -53,11 +53,19 @@ print ("Detected SBC: %s" %modelUsed)
 os.system("apt-get update && apt-get upgrade -y && apt-get install python3-dialog protobuf-compiler libprotobuf-dev libprotoc-dev automake libtool autoconf git pkg-config protobuf-c-compiler -y")
 
 ##Delete all of the old softwar,e this is fine as the configuration files are stored on the /boot partition
-
+os.system("rm -rf /opt/iotloragateway")
 ##Remake the directory structure
+os.system("mkdir -p /opt/iotloragateway")
+os.system("mkdir -p /opt/iotloragateway/dev")
 
 ##Download all fo the software required
-
+os.system("cd /opt/iotloragateway/dev")
+os.system("git clone https://github.com/PiSupply/lora_gateway.git")
+os.system("git clone https://github.com/PiSupply/paho.mqtt.embedded-c.git")
+os.system("git clone https://github.com/PiSupply/ttn-gateway-connector.git")
+os.system("git clone https://github.com/PiSupply/protobuf-c.git")
+os.system("git clone https://github.com/PiSupply/packet_forwarder.git")
+os.system("git clone https://github.com/PiSupply/iot-lora-gateway.git")
 ##First lets compile the LoRa Gateway driver library which provides the SPI Interface
 
 ##Change the configuration file based on what system is being used.
