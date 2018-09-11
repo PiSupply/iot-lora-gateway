@@ -30,7 +30,7 @@ sleep 10
 ##We need to check which system this is running on
 
 #Set variable model to 0 for rpi, 1 for tinkerboard, 2 for odroid c2. We don't need tosplit all RPi models
-PLATFORM = cat /proc/device-tree/model
+PLATFORM=cat /proc/device-tree/model
 echo $PLATFORM
 
 
