@@ -2,6 +2,8 @@
 Overall Build Satus:
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/)
 
+[![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway-tests/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway-tests/)
+
 Github repo for some of our LoRa Gateway HAT Files for different tasks. See below for a detailed description.
 
 You can either setup your gateway by using the one line installer script on Raspbian or instead, use our pre-made SD card image which has all of this already included and saves the time it requires to compile!
@@ -13,6 +15,7 @@ This process takes around 5 Minutes to run on RPi 2B,3B,3B+ & Odroid C2 & Asus T
 2. Run the following command and the software will be all downloaded and compiled
 ```
 curl -sSL https://raw.githubusercontent.com/PiSupply/iot-lora-gateway/master/iot-lora-installer | sudo python3
+
 ```
 
 
