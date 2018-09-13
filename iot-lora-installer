@@ -74,7 +74,9 @@ packages = ['python3-dialog',
             'autoconf',
             'git',
             'pkg-config',
-            'protobuf-c-compiler']
+            'protobuf-c-compiler',
+            'libprotobuf-c-dev',
+            'libprotoc-dev']
 
 os.system("apt-get install %s -y" % ' '.join(packages))
 
@@ -121,17 +123,21 @@ os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= %s/g' library.cfg" % platform)
 # Compile the gateway driver
 os.system("make -j 4")
 
-print("Compiling protobuf-c library")
-# Move to the Protobuf-c library and compile it
-os.chdir("%s/protobuf-c" % compilation_dir)
-os.system("./autogen.sh")
-os.system("./configure")
-os.system("make protobuf-c/libprotobuf-c.la -j 4")
-os.system("mkdir bin")
-# Install the library
-install_cmd = './libtool install /usr/bin/install'
-os.system("%s -c protobuf-c/libprotobuf-c.la `pwd`/bin" % install_cmd)
-os.system("rm -f `pwd`/bin/*so*")
+compileProtobuf = 0
+if(compileProtobuf):
+    print("Compiling protobuf-c library")
+    # Move to the Protobuf-c library and compile it
+    os.chdir("%s/protobuf-c" % compilation_dir)
+    os.system("./autogen.sh")
+    os.system("./configure")
+    os.system("make protobuf-c/libprotobuf-c.la -j 4")
+    os.system("mkdir bin")
+    # Install the library
+    install_cmd = './libtool install /usr/bin/install'
+    os.system("%s -c protobuf-c/libprotobuf-c.la `pwd`/bin" % install_cmd)
+    os.system("rm -f `pwd`/bin/*so*")
+else:
+    print("Skipping protobuf-c compilation")
 
 print("Compiling MQTT library")
 # Move to the MQTT Embedded library
