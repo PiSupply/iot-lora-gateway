@@ -119,14 +119,14 @@ if(modelUsed == "ODROID-C2\x00"):
 os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= %s/g' library.cfg" % platform)
 
 # Compile the gateway driver
-os.system("make")
+os.system("make -j 4")
 
 print("Compiling protobuf-c library")
 # Move to the Protobuf-c library and compile it
 os.chdir("%s/protobuf-c" % compilation_dir)
 os.system("./autogen.sh")
 os.system("./configure")
-os.system("make protobuf-c/libprotobuf-c.la")
+os.system("make protobuf-c/libprotobuf-c.la -j 4")
 os.system("mkdir bin")
 # Install the library
 install_cmd = './libtool install /usr/bin/install'
@@ -136,14 +136,14 @@ os.system("rm -f `pwd`/bin/*so*")
 print("Compiling MQTT library")
 # Move to the MQTT Embedded library
 os.chdir("%s/paho.mqtt.embedded-c" % compilation_dir)
-os.system("make")
+os.system("make -j 4")
 os.system("make install")
 
 print("Compiling TTN Connector library")
 # Move to the TTN Connector library
 os.chdir("%s/ttn-gateway-connector" % compilation_dir)
 os.system("cp config.mk.in config.mk")
-os.system("make")
+os.system("make -j 4")
 # Copy it to the /usr/lib directory for usage
 os.system("cp %s/ttn-gateway-connector/bin/libttn-gateway-connector.so"
           " /usr/lib" % compilation_dir)
@@ -151,7 +151,7 @@ os.system("cp %s/ttn-gateway-connector/bin/libttn-gateway-connector.so"
 # Move to the packet forwarder itself
 os.chdir("%s/packet_forwarder/mp_pkt_fwd" % compilation_dir)
 # Compile it
-os.system("make")
+os.system("make -j 4")
 # And move this up one directory for the user to run
 os.system("cp %s/packet_forwarder/mp_pkt_fwd/mp_pkt_fwd "
           "/opt/iotloragateway/iot-lora-gateway" % compilation_dir)
