@@ -75,8 +75,7 @@ packages = ['python3-dialog',
             'git',
             'pkg-config',
             'protobuf-c-compiler',
-            'libprotobuf-c-dev',
-            'libprotoc-dev']
+            'libprotobuf-c-dev']
 
 os.system("apt-get install %s -y" % ' '.join(packages))
 
