@@ -229,10 +229,10 @@ Congratulations the gateway software is now fully installed!
 You need to edit the configuration file for your gateway to be setup which
 is located at /boot/iotloragateway/
 
-You can either do this using a text editor or run "iot-lora-configure" for our
+You can either do this using a text editor or run "sudo iot-lora-configure" for our
 wizard based editor.
 
-After upon rebooting your Raspberry Pi your gateway should be up and running.
+After rebooting your Raspberry Pi your gateway should be up and running.
 
 ''')
 
