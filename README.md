@@ -74,3 +74,4 @@ Running Armbian 5.59 Ubuntu 18.04 4.14
 
 Running ODroid's Ubuntu 18.04 Minimal 20180626
 
+**Nano Pi Neo**
