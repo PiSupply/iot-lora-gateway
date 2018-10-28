@@ -24,9 +24,13 @@ d.msgbox("This installer script will ask you questions to setup your gateway."
          "have already signed up to an account with The Things Network and "
          "created a gateway to fill out this script.", height=20, width=80)
 
+#Open the configuration as old data so we can populate if the user has already
+# entered data
 configLocation = '/boot/iotloragateway/local_conf.json'
 with open(configLocation, 'r') as f:
     olddata = json.load(f)
+
+#Get the name
 if(olddata["gateway_conf"]["servers"][0]["serv_gw_id"] !=
 "<gateway name from console>"):
     gatewayIdDetails = d.inputbox("Please enter the Gateway ID that you setup "
@@ -35,23 +39,25 @@ if(olddata["gateway_conf"]["servers"][0]["serv_gw_id"] !=
 else:
     gatewayIdDetails = d.inputbox("Please enter the Gateway ID that you setup "
                                   "with The Things Network")
-
-if(olddata["gateway_conf"]["servers"][0]["serv_gw_id"] !=
-"<gateway name from console>"):
+#Get the description
+if(olddata["gateway_conf"]["description"] !=
+"CHANGE-ME"):
     descriptionDetails = d.inputbox("Please enter a short description of the "
                                     "gateway.",
-                  init=olddata["gateway_conf"]["servers"][0]["serv_gw_id"])
+                  init=olddata["gateway_conf"]["description"])
 else:
     descriptionDetails = d.inputbox("Please enter a short description of the "
                                     "gateway.")
 
-
+#Get the users email address
 if(olddata["gateway_conf"]["servers"][0]["serv_gw_id"] !=
 "<gateway name from console>"):
     emailDetails = d.inputbox("Please enter a contact email address",
 init=olddata["gateway_conf"]["servers"][0]["serv_gw_id"])
 else:
     emailDetails = d.inputbox("Please enter a contact email address")
+
+
 # Get The Frequency
 frequencyDetails = d.menu("Please select the frequency of your gateway:",
                           choices=[("Europe", "868MHz"),
