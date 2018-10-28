@@ -50,10 +50,10 @@ else:
                                     "gateway.")
 
 #Get the users email address
-if(olddata["gateway_conf"]["servers"][0]["serv_gw_id"] !=
-"<gateway name from console>"):
+if(olddata["gateway_conf"]["contact_email"] !=
+"CHANGE-ME"):
     emailDetails = d.inputbox("Please enter a contact email address",
-init=olddata["gateway_conf"]["servers"][0]["serv_gw_id"])
+init=olddata["gateway_conf"]["contact_email"])
 else:
     emailDetails = d.inputbox("Please enter a contact email address")
 
@@ -82,15 +82,23 @@ serverDetails = d.menu("Please select the bridge for your gateway",
                                 ("US West", "ttn-router-us-west")
                                 ])
 
+#Get the users location
 locationDetails = d.form("Location", [("Latitude", 1, 1, "", 1, 15, 12, 12),
                                       ("Longitude", 3, 1, "", 3, 15, 12, 12),
                                       ("Altitude", 5, 1, "", 5, 15, 5, 5)])
 
-
-d.msgbox("The configuration script will now ask you for your TTN Key from "
-         "the console. Please paste it in and then press enter.",
-         height=20, width=80)
-keyDetails = input("TTN Console Key: ")
+#Messagebox
+if(olddata["gateway_conf"]["servers"][0]["serv_gw_key"] !=
+"<gateway secret key from console>"):
+    response = d.msgbox("Do you wish to update your TTN Key?",
+             height=20, width=80)
+    print(response)
+    input()
+else:
+    d.msgbox("The configuration script will now ask you for your TTN Key from "
+             "the console. Please paste it in and then press enter.",
+             height=20, width=80)
+    keyDetails = input("TTN Console Key: ")
 
 d.msgbox("The configuration script will now configure the packet forwarder, "
          "enable SPI and confirm SSH is enabled for remote management.",
