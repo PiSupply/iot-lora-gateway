@@ -95,7 +95,7 @@ os.system("git clone https://github.com/PiSupply/paho.mqtt.embedded-c.git")
 os.system("git clone https://github.com/PiSupply/ttn-gateway-connector.git")
 os.system("git clone https://github.com/PiSupply/protobuf-c.git")
 os.system("git clone https://github.com/PiSupply/packet_forwarder.git")
-os.system("git clone https://github.com/PiSupply/iot-lora-gateway.git")
+os.system("git clone -b release --single-branch https://github.com/PiSupply/iot-lora-gateway.git")
 
 
 print("Compiling LoRa Gateway Driver")
