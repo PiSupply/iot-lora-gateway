@@ -27,8 +27,23 @@ d.msgbox("This installer script will ask you questions to setup your gateway."
 #Open the configuration as old data so we can populate if the user has already
 # entered data
 configLocation = '/boot/iotloragateway/local_conf.json'
-with open(configLocation, 'r') as f:
-    olddata = json.load(f)
+
+
+##Check if there's a configuration file already, if not copy it to the correct directory ready for the configuration script.
+
+
+try:
+    with open(configLocation, 'r') as f:
+        olddata = json.load(f)
+except FileNotFoundError:
+    shutil.copy2("/boot/iotloragateway/template_configs/local_conf.json.template","/boot/iotloragateway/local_conf.json")
+    try:
+        with open(configLocation, 'r') as f:
+            olddata = json.load(f)
+    except:
+        print("Config File Error"
+        exit()
+
 
 #Get the name
 if(olddata["gateway_conf"]["servers"][0]["serv_gw_id"] !=
