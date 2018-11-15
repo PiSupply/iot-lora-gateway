@@ -2,17 +2,27 @@
 Overall Build Satus:
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/)
 
+[![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway-tests/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway-tests/)
+
 Github repo for some of our LoRa Gateway HAT Files for different tasks. See below for a detailed description.
 
 You can either setup your gateway by using the one line installer script on Raspbian or instead, use our pre-made SD card image which has all of this already included and saves the time it requires to compile!
 
 This process takes around 5 Minutes to run on RPi 2B,3B,3B+ & Odroid C2 & Asus Tinkerboards. It takes around 15 minutes on RPi Models B+, A+ & Zeros. However can take even longer on slow internet connections. Please allow up to 30 minutes.
 
+We'll be activly monitoring and looking at how we can improve this installation process.
+
 #installation
 1. Login via SSH or console
 2. Run the following command and the software will be all downloaded and compiled
-```curl -sSL https://raw.githubusercontent.com/PiSupply/iot-lora-gateway/master/iot-lora-installer | sudo python3
 ```
+curl -sSL https://raw.githubusercontent.com/PiSupply/iot-lora-gateway/release/iot-lora-installer | sudo python3
+
+```
+
+#Other SBC Requests
+If you wish to use this on another SBC not mentioned then please let us know and we'll look at supporting it. Do this by creating a github issue.
+
 
 
 # Files Included
@@ -63,3 +73,5 @@ Running Armbian 5.59 Ubuntu 18.04 4.14
 [![Build Status](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Odroid%20C2/badge/icon)](https://jenkins.pi-supply.com/job/iot-lora-gateway/SBCs=Odroid%20C2/)
 
 Running ODroid's Ubuntu 18.04 Minimal 20180626
+
+**Nano Pi Neo**

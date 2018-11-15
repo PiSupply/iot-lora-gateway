@@ -15,6 +15,7 @@
 # Making Gateways, making lora Gateways, get some lora and put it in a gateway,
 # making gateways, making lora gateways, Loraaaa gatewaysssss
 
+
 # Imports!
 from time import sleep
 import os
@@ -73,7 +74,8 @@ packages = ['python3-dialog',
             'autoconf',
             'git',
             'pkg-config',
-            'protobuf-c-compiler']
+            'protobuf-c-compiler',
+            'libprotobuf-c-dev']
 
 os.system("apt-get install %s -y" % ' '.join(packages))
 
@@ -93,7 +95,7 @@ os.system("git clone https://github.com/PiSupply/paho.mqtt.embedded-c.git")
 os.system("git clone https://github.com/PiSupply/ttn-gateway-connector.git")
 os.system("git clone https://github.com/PiSupply/protobuf-c.git")
 os.system("git clone https://github.com/PiSupply/packet_forwarder.git")
-os.system("git clone https://github.com/PiSupply/iot-lora-gateway.git")
+os.system("git clone -b release --single-branch https://github.com/PiSupply/iot-lora-gateway.git")
 
 
 print("Compiling LoRa Gateway Driver")
@@ -118,31 +120,35 @@ if(modelUsed == "ODROID-C2\x00"):
 os.system("sed -i -e 's/PLATFORM= .*$/PLATFORM= %s/g' library.cfg" % platform)
 
 # Compile the gateway driver
-os.system("make")
+os.system("make -j 4")
 
-print("Compiling protobuf-c library")
-# Move to the Protobuf-c library and compile it
-os.chdir("%s/protobuf-c" % compilation_dir)
-os.system("./autogen.sh")
-os.system("./configure")
-os.system("make protobuf-c/libprotobuf-c.la")
-os.system("mkdir bin")
-# Install the library
-install_cmd = './libtool install /usr/bin/install'
-os.system("%s -c protobuf-c/libprotobuf-c.la `pwd`/bin" % install_cmd)
-os.system("rm -f `pwd`/bin/*so*")
+compileProtobuf = 0
+if(compileProtobuf):
+    print("Compiling protobuf-c library")
+    # Move to the Protobuf-c library and compile it
+    os.chdir("%s/protobuf-c" % compilation_dir)
+    os.system("./autogen.sh")
+    os.system("./configure")
+    os.system("make protobuf-c/libprotobuf-c.la -j 4")
+    os.system("mkdir bin")
+    # Install the library
+    install_cmd = './libtool install /usr/bin/install'
+    os.system("%s -c protobuf-c/libprotobuf-c.la `pwd`/bin" % install_cmd)
+    os.system("rm -f `pwd`/bin/*so*")
+else:
+    print("Skipping protobuf-c compilation")
 
 print("Compiling MQTT library")
 # Move to the MQTT Embedded library
 os.chdir("%s/paho.mqtt.embedded-c" % compilation_dir)
-os.system("make")
+os.system("make -j 4")
 os.system("make install")
 
 print("Compiling TTN Connector library")
 # Move to the TTN Connector library
 os.chdir("%s/ttn-gateway-connector" % compilation_dir)
 os.system("cp config.mk.in config.mk")
-os.system("make")
+os.system("make -j 4")
 # Copy it to the /usr/lib directory for usage
 os.system("cp %s/ttn-gateway-connector/bin/libttn-gateway-connector.so"
           " /usr/lib" % compilation_dir)
@@ -150,7 +156,7 @@ os.system("cp %s/ttn-gateway-connector/bin/libttn-gateway-connector.so"
 # Move to the packet forwarder itself
 os.chdir("%s/packet_forwarder/mp_pkt_fwd" % compilation_dir)
 # Compile it
-os.system("make")
+os.system("make -j 4")
 # And move this up one directory for the user to run
 os.system("cp %s/packet_forwarder/mp_pkt_fwd/mp_pkt_fwd "
           "/opt/iotloragateway/iot-lora-gateway" % compilation_dir)
@@ -198,7 +204,8 @@ if(modelUsed == "ODRID-C2"):
 # if raspberry Pi enable the SPI bus and set the core clock to 250mhz
 if(modelUsed == "Raspberry"):
     os.system("raspi-config nonint do_spi 0")
-    os.system("raspi-config nonint set_config_var core_freq 250 /boot/config.txt")
+    os.system("raspi-config nonint set_config_var "
+              "core_freq 250 /boot/config.txt")
 
 # Reload systemctl daemon and enable the service
 os.system("systemctl daemon-reload")
@@ -222,10 +229,10 @@ Congratulations the gateway software is now fully installed!
 You need to edit the configuration file for your gateway to be setup which
 is located at /boot/iotloragateway/
 
-You can either do this using a text editor or run "iot-lora-configure" for our
+You can either do this using a text editor or run "sudo iot-lora-configure" for our
 wizard based editor.
 
-After upon rebooting your Raspberry Pi your gateway should be up and running.
+After rebooting your Raspberry Pi your gateway should be up and running.
 
 ''')
 
