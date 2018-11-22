@@ -36,12 +36,12 @@ try:
     with open(configLocation, 'r') as f:
         olddata = json.load(f)
 except FileNotFoundError:
-    shutil.copy2("/boot/iotloragateway/template_configs/local_conf.json.template","/boot/iotloragateway/local_conf.json")
+    shutil.copy2("/boot/iotloragateway/global_confs/local_conf.json.template","/boot/iotloragateway/local_conf.json")
     try:
         with open(configLocation, 'r') as f:
             olddata = json.load(f)
     except:
-        print("Config File Error"
+        print("Config File Error")
         exit()
 
 
@@ -183,3 +183,7 @@ os.chmod("/opt/iotloragateway/iot-lora-gateway-reset.sh", st.st_mode | 0o111)
 restart = d.pause("The system now will reboot to finish configuring your "
                     "gateway andautomatically start the forwarder."
                     "if you do not want to restart select cancel.")
+if(restart = "ok"):
+    os.system("sudo shutdown -r now")
+else:
+    print("Installation completed, please re-start to use.")
