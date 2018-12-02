@@ -38,10 +38,7 @@ except FileNotFoundError:
         with open(configLocation, 'r') as f:
             olddata = json.load(f)
     except:
-<<<<<<< HEAD
-=======
         os.system("clear")
->>>>>>> 8caa7bc42df6716e497bebc4afb1b0123fd0ac53
         print("Config File Error")
         exit()
 
@@ -91,7 +88,7 @@ frequencyDetails = d.menu("Please select the frequency of your gateway:",
                                    ])
 if frequencyDetails[0] == "cancel":
     os.system("clear")
-    sys.exit(1) 
+    sys.exit(1)
 
 # Get the Server
 serverDetails = d.menu("Please select the bridge for your gateway",
@@ -107,7 +104,7 @@ serverDetails = d.menu("Please select the bridge for your gateway",
                                 ])
 if serverDetails[0] == "cancel":
     os.system("clear")
-    sys.exit(1) 
+    sys.exit(1)
 
 # Get the users location
 if (olddata["gateway_conf"]["ref_latitude"] == 0 and
@@ -138,7 +135,7 @@ if response == "ok":
         sys.exit(1)
 else:
     keyDetails = ("ok", olddata["gateway_conf"]["servers"][0]["serv_gw_key"])
-    
+
 d.msgbox("The configuration script will now configure the packet forwarder, "
          "enable SPI and confirm SSH is enabled for remote management.",
          height=10, width=80)
@@ -205,7 +202,6 @@ shutil.copyfile(freqDict[frequencyDetails[1]], boot_conf_file)
 st = os.stat("/opt/iotloragateway/iot-lora-gateway-reset.sh")
 os.chmod("/opt/iotloragateway/iot-lora-gateway-reset.sh", st.st_mode | 0o111)
 
-<<<<<<< HEAD
 restart = d.pause("The system now will reboot to finish configuring your "
                     "gateway andautomatically start the forwarder."
                     "if you do not want to restart select cancel.")
@@ -213,7 +209,6 @@ if(restart = "ok"):
     os.system("sudo shutdown -r now")
 else:
     print("Installation completed, please re-start to use.")
-=======
 # Prompt for reboot
 restart = d.pause("The system now will reboot in 10 seconds to finish "
                   "configuring your gateway andautomatically start the "
@@ -222,4 +217,3 @@ restart = d.pause("The system now will reboot in 10 seconds to finish "
 os.system("clear")
 if restart == "ok":
      os.system("sudo reboot")
->>>>>>> 8caa7bc42df6716e497bebc4afb1b0123fd0ac53
