@@ -33,7 +33,7 @@ try:
     with open(configLocation, 'r') as f:
         olddata = json.load(f)
 except FileNotFoundError:
-    shutil.copy2("/boot/iotloragateway/template_configs/local_conf.json.template","/boot/iotloragateway/local_conf.json")
+    shutil.copy2("/boot/iotloragateway/global_confs/local_conf.json.template","/boot/iotloragateway/local_conf.json")
     try:
         with open(configLocation, 'r') as f:
             olddata = json.load(f)
@@ -108,7 +108,7 @@ if serverDetails[0] == "cancel":
 
 # Get the users location
 if (olddata["gateway_conf"]["ref_latitude"] == 0 and
-    olddata["gateway conf"]["ref_longitude"] == 0 and
+    olddata["gateway_conf"]["ref_longitude"] == 0 and
     olddata["gateway_conf"]["ref_altitude"] == 0):
     elements = ("", "", "")
 else:
