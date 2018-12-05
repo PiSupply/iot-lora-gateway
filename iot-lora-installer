@@ -20,6 +20,7 @@
 from time import sleep
 import os
 import shutil
+import sys
 # End imports
 
 # START
@@ -51,12 +52,18 @@ sleep(10)
 
 try:
     dtModel = open('/proc/device-tree/model', 'r')
+    modelUsed = dtModel.read().split(" ")[0]
 except Exception:
     print("Device Tree directory not found, this is likely because you are "
           "running this program on a normal computer or a non supported SBC")
-    exit()
+    try:
+        if(sys.argv[1] == "balena"):
+            modelUsed = "Raspberry"
+    except Exception:
+        exit()
 
-modelUsed = dtModel.read().split(" ")[0]
+
+
 print("Detected SBC: %s" % modelUsed)
 
 print("Updating, Upgrading and installing packages from APT")
