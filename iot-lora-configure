@@ -108,7 +108,7 @@ if serverDetails[0] == "cancel":
 
 # Get the users location
 if (olddata["gateway_conf"]["ref_latitude"] == 0 and
-    olddata["gateway conf"]["ref_longitude"] == 0 and
+    olddata["gateway_conf"]["ref_longitude"] == 0 and
     olddata["gateway_conf"]["ref_altitude"] == 0):
     elements = ("", "", "")
 else:
