@@ -12,7 +12,7 @@ This process takes around 5 Minutes to run on RPi 2B,3B,3B+ & Odroid C2 & Asus T
 
 We'll be activly monitoring and looking at how we can improve this installation process.
 
-#installation
+# Installation
 1. Login via SSH or console
 2. Run the following command and the software will be all downloaded and compiled
 ```
