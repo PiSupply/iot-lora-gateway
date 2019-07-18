@@ -6,7 +6,7 @@ Note! This repository isn't updated as much now. We highly recommend using a Ras
 1. Login via SSH or console
 2. Run the following command and the software will be all downloaded and compiled
 ```
-curl -sSL https://raw.githubusercontent.com/PiSupply/iot-lora-gateway/release/iot-lora-installer | sudo python3
+curl -sSL https://raw.githubusercontent.com/PiSupply/iot-lora-gateway/master/iot-lora-installer | sudo python3
 
 ```
 

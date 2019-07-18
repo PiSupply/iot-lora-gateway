@@ -2,7 +2,7 @@
 
 # IOT LoRa Installer
 # by Ryan Walmsley
-# (C) Pi Supply 2018
+# (C) Pi Supply 2018-2019
 # This file downloads the current software for the LoRa Gateway Packet
 # Forwarder by Kersing and installs it on your Raspberry Pi. At the same time
 # it also enables SPI, Installs a service to automatically start it on boot,
@@ -120,6 +120,8 @@ os.chdir("%s/lora_gateway/libloragw" % compilation_dir)
 if(modelUsed == "Raspberry"):
     platform = "iotloragw_rpi"
 if(modelUsed == "Rockchip"):
+    platform = "iotloragw_tnk"
+if(modelUsed == "ASUS"):
     platform = "iotloragw_tnk"
 if(modelUsed == "ODROID-C2\x00"):
     platform = "iotloragw_odc2"
